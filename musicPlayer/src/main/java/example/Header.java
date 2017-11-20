@@ -10,65 +10,65 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 public class Header extends JFrame {
-	private JFrame frame;// ´°Ìå
-	private JMenuBar mBar;// ²Ëµ¥
-	private JPanel panel;// Ãæ°å
-	private JLabel label;// ±êÇ©
+	private JFrame frame;// ï¿½ï¿½ï¿½ï¿½
+	private JMenuBar mBar;// ï¿½Ëµï¿½
+	private JPanel panel;// ï¿½ï¿½ï¿½
+	private JLabel label;// ï¿½ï¿½Ç©
 
-	// ¹¹Ôìº¯Êı
+	// ï¿½ï¿½ï¿½ìº¯ï¿½ï¿½
 	public Header() {
 		frame = new JFrame();
 		panel = new JPanel();
 		mBar = new JMenuBar();
-		// ÉèÖÃ²Ëµ¥À¸
-		this.setTitle("Õı´óÑ§Ôºµ¼ÓÎÏµÍ³");
+		// ï¿½ï¿½ï¿½Ã²Ëµï¿½ï¿½ï¿½
+		this.setTitle("ï¿½ï¿½ï¿½ï¿½Ñ§Ôºï¿½ï¿½ï¿½ï¿½ÏµÍ³");
 		this.setJMenuBar(mBar);
 		this.setResizable(false);
-		// Ìí¼Ó²Ëµ¥À¸
+		// ï¿½ï¿½Ó²Ëµï¿½ï¿½ï¿½
 		JMenu sMenu, jMenu, gMenu, cMenu, bMenu;
 		sMenu = new JMenu("ÏµÍ³");
-		jMenu = new JMenu("¼ò½é");
-		gMenu = new JMenu("¹¤¾ß");
-		cMenu = new JMenu("²éÑ¯");
-		bMenu = new JMenu("°ïÖú");
+		jMenu = new JMenu("ï¿½ï¿½ï¿½");
+		gMenu = new JMenu("ï¿½ï¿½ï¿½ï¿½");
+		cMenu = new JMenu("ï¿½ï¿½Ñ¯");
+		bMenu = new JMenu("ï¿½ï¿½ï¿½ï¿½");
 		mBar.add(sMenu);
 		mBar.add(jMenu);
 		mBar.add(gMenu);
 		mBar.add(cMenu);
 		mBar.add(bMenu);
-		// ÏµÍ³Ìí¼ÓÑ¡Ïî²Ëµ¥
+		// ÏµÍ³ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ëµï¿½
 		JMenuItem sItem, cItem, tItem;
-		sItem = new JMenuItem("¿ªÊ¼µ¼º½");
-		cItem = new JMenuItem("Ë¢ĞÂÏµÍ³");
-		tItem = new JMenuItem("ÍË³öÏµÍ³");
+		sItem = new JMenuItem("ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½");
+		cItem = new JMenuItem("Ë¢ï¿½ï¿½ÏµÍ³");
+		tItem = new JMenuItem("ï¿½Ë³ï¿½ÏµÍ³");
 		sMenu.add(sItem);
 		sMenu.addSeparator();
 		sMenu.add(cItem);
 		sMenu.addSeparator();
 		sMenu.add(tItem);
-		// ¼ò½éÌí¼ÓÑ¡Ïî²Ëµ¥
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ëµï¿½
 		JMenuItem xItem;
-		xItem = new JMenuItem("Ñ§Ôº¼ò½é");
+		xItem = new JMenuItem("Ñ§Ôºï¿½ï¿½ï¿½");
 		jMenu.add(xItem);
-		// ¹¤¾ßÌí¼ÓÑ¡Ïî²Ëµ¥
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ëµï¿½
 		JMenuItem xyItem, ycItem;
-		xyItem = new JMenuItem("ÏÔÊ¾²Ëµ¥");
-		ycItem = new JMenuItem("Òş²Ø²Ëµ¥");
+		xyItem = new JMenuItem("ï¿½ï¿½Ê¾ï¿½Ëµï¿½");
+		ycItem = new JMenuItem("ï¿½ï¿½ï¿½Ø²Ëµï¿½");
 		gMenu.add(xyItem);
 		gMenu.addSeparator();
 		gMenu.add(ycItem);
-		// ²éÑ¯Ìí¼ÓÑ¡Ïî²Ëµ¥
+		// ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ëµï¿½
 		JMenuItem lItem;
-		lItem = new JMenuItem("Â·Ïß²éÑ¯");
+		lItem = new JMenuItem("Â·ï¿½ß²ï¿½Ñ¯");
 		cMenu.add(lItem);
-		// °ïÖúÌí¼ÓÑ¡Ïî²Ëµ¥
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ëµï¿½
 		JMenuItem smItem, gyItem;
-		smItem = new JMenuItem("ËµÃ÷");
-		gyItem = new JMenuItem("¹ØÓÚ");
+		smItem = new JMenuItem("Ëµï¿½ï¿½");
+		gyItem = new JMenuItem("ï¿½ï¿½ï¿½ï¿½");
 		bMenu.add(smItem);
 		bMenu.addSeparator();
 		bMenu.add(gyItem);
-		// ´°ÌåÉèÖÃ
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		this.add(panel);
 		panel.setBackground(Color.green);
 		this.setBounds(180, 10, 1024, 680);
@@ -79,5 +79,6 @@ public class Header extends JFrame {
 
 	public static void main(String[] args) {
 		new Header();
+		//jfklsdlfjksldjå°±åˆ†å¼€äº†åœ£è¯èŠ‚å¿«ä¹é£æœºä¸Šçš„æ³•å¾‹ä¸Šçš„å®¶é™„è¿‘çš„é…¸è¾£ç²‰
 	}
 }
