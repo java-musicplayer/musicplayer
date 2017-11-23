@@ -44,18 +44,19 @@ public class IndexFrame {
 		JPanel centerFooterPanel = new JPanel();
 		JButton btnUpMusic = new JButton("上一首");
 		JButton btnDownMusic = new JButton("下一首");
-		JButton btnPlayMusic = new JButton("播放");
+		JButton btnPlayMusic = new JButton("播放/停止");
+		JButton btnPlayMethod = new JButton("随机/顺序/单曲循环");
 		centerPanel.setBorder(BorderFactory.createLoweredBevelBorder());
 		//布局方式
 		mainPanel.setLayout( new BorderLayout());
-		leftPanel.setLayout(new BorderLayout());
+		leftPanel.setLayout(new GridLayout(2,1));//两行一列
 		centerPanel.setLayout(new BorderLayout());
 		leftHeaderPanel.setLayout(new BorderLayout());
 		leftFooterPanel.setLayout(new BorderLayout());
 		
 		//左侧
-		leftPanel.add(leftHeaderPanel, "North");
-		leftPanel.add(leftFooterPanel, "Center");
+		leftPanel.add(leftHeaderPanel);
+		leftPanel.add(leftFooterPanel);
 		
 		leftHeaderPanel.add(lab1, "North");
 		leftHeaderPanel.add(btnTest, "South");
@@ -68,6 +69,7 @@ public class IndexFrame {
 		centerFooterPanel.add(btnUpMusic);
 		centerFooterPanel.add(btnDownMusic);
 		centerFooterPanel.add(btnPlayMusic);
+		centerFooterPanel.add(btnPlayMethod);
 		mainPanel.add(centerPanel, "Center");
 		mainPanel.add(leftPanel, "West");
 		
@@ -76,7 +78,7 @@ public class IndexFrame {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		IndexFrame index = new IndexFrame();
+		new IndexFrame();
 	}
 
 }
