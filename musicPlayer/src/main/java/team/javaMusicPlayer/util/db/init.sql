@@ -13,6 +13,7 @@ CREATE TABLE "musicsheet" (
     "uuid" TEXT NOT NULL DEFAULT (''),
     "name" TEXT DEFAULT (''),
     "creatorId" TEXT DEFAULT (''),
+    "creator" TEXT DEFAULT (''),
     "dateCreated" TEXT DEFAULT (''),
     "pictureUrl" TEXT DEFAULT ('')
 );

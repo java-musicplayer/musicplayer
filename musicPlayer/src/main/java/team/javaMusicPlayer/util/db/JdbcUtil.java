@@ -12,6 +12,7 @@ public class JdbcUtil {
 	private static String DIRVER;
 	private static ResourceBundle rb = ResourceBundle.getBundle("team.javaMusicplayer.util.db.db-config.properties");
 	static {
+		
 		URL = rb.getString("jdbc.url");
 		DIRVER = rb.getString("jdbc.driver");
 		try {
@@ -21,7 +22,7 @@ public class JdbcUtil {
 		}
 	}
 
-	/*
+	/**
 	 * 功能:获取一个数据库链接对象
 	 * 
 	 * 改进:没有使用数据库连接池，比较消耗资源
@@ -37,10 +38,12 @@ public class JdbcUtil {
 	}
 	
 	
-	/*
+	/**
 	 * 功能:关闭与数据库相关的对象
 	 */
 	public static void close(ResultSet rs, Statement stat, Connection conn) {
+		
+		
 		try {
 			if (rs != null)
 				rs.close();

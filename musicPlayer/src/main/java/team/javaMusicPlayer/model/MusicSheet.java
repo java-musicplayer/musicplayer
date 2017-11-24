@@ -1,6 +1,10 @@
 package team.javaMusicPlayer.model;
 
-import java.util.List;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.UUID;
 
 public class MusicSheet {
 
@@ -11,18 +15,18 @@ public class MusicSheet {
 	private String creator;
 	private String dateCreated;
 	private String picture;
-	private List<Integer> musicItems;
+	// <MD5, Music file name>
+	private Map<String, String> musicItems;
 
 
-	public List<Integer> getMusicItems() {
-		return musicItems;
-	}
-
-	public void setMusicItems(List<Integer> musicItems) {
-		this.musicItems = musicItems;
-	}
 
 	public MusicSheet() {
+		this.uuid=UUID.randomUUID().toString().replaceAll("-", "");
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		this.dateCreated = formatter.format(new Date());
+		//设置默认图片
+		File pic=new File("resources/images/defaultFaceImg.jpeg");
+		this.picture=pic.getAbsolutePath();
 	}
 
 	public MusicSheet(String name) {
@@ -84,6 +88,29 @@ public class MusicSheet {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public Map<String, String> getMusicItems() {
+		return musicItems;
+	}
+
+	public void setMusicItems(Map<String, String> musicItems) {
+		this.musicItems = musicItems;
+	}
+	/**
+	 * 通过重写 equals 和 hashCode ，使用 hashSet 实现去重复
+	 */
+	//实现去重复，通过比较 creatorId
+	@Override
+	public boolean equals(Object obj) {
+		MusicSheet anotherMusicSheet=(MusicSheet)obj;
+		return this.creatorId.equals(anotherMusicSheet.creatorId);
+	}
+	
+	@Override
+	public int hashCode() {
+	String in=creatorId;
+		return in.hashCode();
 	}
 
 }
