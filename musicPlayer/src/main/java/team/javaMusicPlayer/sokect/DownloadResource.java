@@ -20,7 +20,7 @@ import team.javaMusicPlayer.model.MusicSheet;
 public class DownloadResource {
 	private static ResourceBundle rb;
 	static {
-		rb=ResourceBundle.getBundle("team.javaMusicPlayer.sokect.server.properties");
+		rb=ResourceBundle.getBundle("team.javaMusicPlayer.sokect.server");
 	}
 
 	/*
@@ -43,7 +43,12 @@ public class DownloadResource {
 	 */
 	public static List<MusicSheet> queryMusic() {
 		String JOSN=sendGet(rb.getString("server.queryMusicSheets"), "type=all");
-		ArrayList<MusicSheet> musicSheets=JSON.parseObject(JOSN,new TypeReference<ArrayList<MusicSheet>>() {});
+		ArrayList<MusicSheet> musicSheets=new ArrayList<MusicSheet>();
+		try {
+			musicSheets=JSON.parseObject(JOSN,new TypeReference<ArrayList<MusicSheet>>() {});
+		} catch (com.alibaba.fastjson.JSONException e) {
+			e.printStackTrace();
+		}
 		return musicSheets;
 	}
 
@@ -70,22 +75,28 @@ public class DownloadResource {
 			// 遍历所有的响应头字段
 			String fileName = "";
 			for (String key : map.keySet()) {
-				// System.out.println(key + "--->" + map.get(key));
-				if (map.get(key).contains("filename")) {
-					for (String s : map.get(key)) {
-						if (s.contains("filename"))
-							fileName = s.split(":")[1];
+				if("Content-Disposition".equals(key)) {
+					for (String name : map.get(key)) {
+						if(name.contains("filename")) {
+							fileName = name.split("=")[1];
+							break;
+						}
 					}
 				}
 			}
 
 			// 中文解码
 			fileName = URLDecoder.decode(fileName, "utf-8");
+			System.out.println("请求地址:"+connection.getURL()+"\t"+"当前下载:"+fileName);
 			InputStream inputStream = connection.getInputStream();
 			byte[] bytes = readInputStream(inputStream);
 
-			if ("type=all".equals(param))
-				return new String(bytes);
+			if ("type=all".equals(param)) {
+				String jsonOrign=new String(bytes);
+				int head=jsonOrign.indexOf("musicSheetList")+"musicSheetList".length()+2;
+				int tail=jsonOrign.indexOf("message")-2;
+				return jsonOrign.substring(head, tail);
+			}
 			else {
 				File file = null;
 				FileOutputStream outFile = null;
@@ -95,15 +106,18 @@ public class DownloadResource {
 						file = new File("data/musics/" + fileName);
 					} else {
 						// 写出图片
-						file = new File("data/pictures/" + fileName);
+						file = new File("data/pictures/" + param.split("=")[1]);
+//						DataInputStream dataInputStream= new DataInputStream(realUrl.openStream());
+//						bytes=readInputStream(dataInputStream);
 					}
+					outFile=new FileOutputStream(file);
+					outFile.write(bytes);
 
 				} catch (Exception e) {
 					e.printStackTrace();
 					return "";
 				} finally {
 					if (outFile != null) {
-						outFile.write(bytes);
 						outFile.close();
 					}
 				}

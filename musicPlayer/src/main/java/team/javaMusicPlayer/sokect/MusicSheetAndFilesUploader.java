@@ -213,7 +213,7 @@ public class MusicSheetAndFilesUploader {
 	public static boolean upload(MusicSheet ms) {
 		try {
 			MusicSheetService musicSheetService=new MusicSheetService();
-			String url=ResourceBundle.getBundle("team.javaMusicPlayer.sokect.server.properties")
+			String url=ResourceBundle.getBundle("team.javaMusicPlayer.sokect.server")
 					.getString("server.uploadMusicSheet");
 			List<String> filePaths = new ArrayList<String>();
 			List<Music> musicsOfMs=musicSheetService.getMusicByMusicSheetId(ms.getId());

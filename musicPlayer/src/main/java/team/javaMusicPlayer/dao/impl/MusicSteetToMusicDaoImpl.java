@@ -24,7 +24,7 @@ public class MusicSteetToMusicDaoImpl implements TablesBase<MusicSheetToMusic> {
 	public boolean insert(MusicSheetToMusic obj) {
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
-		String sql = "insert into musicsheet_music values(?,?)";
+		String sql = "insert into musicsheet_music values(null,?,?)";
 		try {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setInt(1, obj.getMusicId());
@@ -64,8 +64,7 @@ public class MusicSteetToMusicDaoImpl implements TablesBase<MusicSheetToMusic> {
 
 	@Override
 	public MusicSheetToMusic getById(int id) {
-		MusicSheetToMusic ans = new MusicSheetToMusic();
-		ans.setId(id);
+		MusicSheetToMusic ans=null;
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
 		ResultSet rs = null;
@@ -74,7 +73,9 @@ public class MusicSteetToMusicDaoImpl implements TablesBase<MusicSheetToMusic> {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setInt(1, id);
 			rs = preStatement.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
+				ans = new MusicSheetToMusic();
+				ans.setId(id);
 				ans.setMusicId(rs.getInt("musicId"));
 				ans.setMusicSheetId(rs.getInt("musicsheetId"));
 			}
@@ -106,7 +107,6 @@ public class MusicSteetToMusicDaoImpl implements TablesBase<MusicSheetToMusic> {
 			preStatement.setInt(1, musicsheetId);
 			rs = preStatement.executeQuery();
 			while (rs.next()) {
-
 				MusicSheetToMusic ans = new MusicSheetToMusic();
 				ans.setId(rs.getInt("id"));
 				ans.setMusicId(rs.getInt("musicId"));
@@ -121,6 +121,33 @@ public class MusicSteetToMusicDaoImpl implements TablesBase<MusicSheetToMusic> {
 		} finally {
 			JdbcUtil.close(rs, preStatement, conn);
 		}
+	}
+	
+	/**
+	 * 本首歌曲时候已经加入到本歌单
+	 * @param msid
+	 * @param misd
+	 * @return
+	 */
+	public boolean musicIsExist(int msid,int mid) {
+		Connection conn=JdbcUtil.getConnect();
+		PreparedStatement preState=null;
+		ResultSet rs=null;
+		String sql="select id from musicsheet_music where musicId=? and musicsheetId=?";
+		try {
+			preState=conn.prepareStatement(sql);
+			preState.setInt(1, mid);
+			preState.setInt(2, msid);
+			rs=preState.executeQuery();
+			return rs.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		finally {
+			JdbcUtil.close(rs, preState, conn);
+		}
+		
 	}
 
 }

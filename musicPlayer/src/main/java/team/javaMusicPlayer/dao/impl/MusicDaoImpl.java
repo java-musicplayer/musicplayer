@@ -22,7 +22,7 @@ public class MusicDaoImpl implements TablesBase<Music> {
 	public boolean insert(Music obj) {
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
-		String sql = "insert into music values(?,?,?,?)";
+		String sql = "insert into music values(null,?,?,?,?)";
 		try {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setString(1, obj.getMd5value());
@@ -67,8 +67,7 @@ public class MusicDaoImpl implements TablesBase<Music> {
 
 	@Override
 	public Music getById(int id) {
-		Music ans = new Music();
-		ans.setId(id);
+		Music ans=null;
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
 		ResultSet rs = null;
@@ -77,7 +76,9 @@ public class MusicDaoImpl implements TablesBase<Music> {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setInt(1, id);
 			rs = preStatement.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
+				ans = new Music();
+				ans.setId(id);
 				ans.setMd5value(rs.getString("md5value"));
 				ans.setName(rs.getString("name"));
 				ans.setSinger(rs.getString("singer"));
@@ -95,8 +96,7 @@ public class MusicDaoImpl implements TablesBase<Music> {
 	}
 
 	public Music getByMd5Value(String md5Value) {
-		Music ans = new Music();
-		ans.setMd5value(md5Value);
+		Music ans =null;
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
 		ResultSet rs = null;
@@ -105,7 +105,9 @@ public class MusicDaoImpl implements TablesBase<Music> {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setString(1, md5Value);
 			rs = preStatement.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
+				ans=new Music();
+				ans.setMd5value(md5Value);
 				ans.setId(rs.getInt("id"));
 				ans.setName(rs.getString("name"));
 				ans.setSinger(rs.getString("singer"));

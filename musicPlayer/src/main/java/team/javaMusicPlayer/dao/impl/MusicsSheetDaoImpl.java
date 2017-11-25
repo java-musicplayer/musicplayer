@@ -24,7 +24,7 @@ public class MusicsSheetDaoImpl implements TablesBase<MusicSheet> {
 	public boolean insert(MusicSheet obj) {
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
-		String sql = "insert into musicsheet values(?,?,?,?,?,?)";
+		String sql = "insert into musicsheet values(null,?,?,?,?,?,?)";
 		try {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setString(1, obj.getUuid());
@@ -68,8 +68,7 @@ public class MusicsSheetDaoImpl implements TablesBase<MusicSheet> {
 
 	@Override
 	public MusicSheet getById(int id) {
-		MusicSheet ans = new MusicSheet();
-		ans.setId(id);
+		MusicSheet ans=null;
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
 		ResultSet rs = null;
@@ -78,7 +77,9 @@ public class MusicsSheetDaoImpl implements TablesBase<MusicSheet> {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setInt(1, id);
 			rs = preStatement.executeQuery();
-			while (rs.next()) {
+			if  (rs.next()) {
+				ans = new MusicSheet();
+				ans.setId(id);
 				ans.setUuid(rs.getString("uuid"));
 				ans.setName(rs.getString("name"));
 				ans.setCreatorId(rs.getString("creatorId"));
@@ -138,8 +139,7 @@ public class MusicsSheetDaoImpl implements TablesBase<MusicSheet> {
 	 * @return
 	 */
 	public MusicSheet getByUuid(String uuid) {
-		MusicSheet ans = new MusicSheet();
-		ans.setUuid(uuid);
+		MusicSheet ans=null;
 		Connection conn = JdbcUtil.getConnect();
 		PreparedStatement preStatement = null;
 		ResultSet rs = null;
@@ -148,7 +148,9 @@ public class MusicsSheetDaoImpl implements TablesBase<MusicSheet> {
 			preStatement = conn.prepareStatement(sql);
 			preStatement.setString(1, uuid);
 			rs = preStatement.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
+				ans = new MusicSheet();
+				ans.setUuid(uuid);
 				ans.setId(rs.getInt("id"));
 				ans.setName(rs.getString("name"));
 				ans.setCreatorId(rs.getString("creatorId"));

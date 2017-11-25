@@ -43,6 +43,8 @@ public class MusicPlayer {
 	 * 功能: 播放上一首歌曲
 	 */
 	public void playLast() throws Exception {
+//		if(nowMusic!=null)
+//			close();
 		int nowIndex = getNowMusicIndex();
 		if (nowIndex > 0)
 			nowMusic = musicsList.get(--nowIndex < 0 ? musicsList.size() + nowIndex : nowIndex);
@@ -53,9 +55,12 @@ public class MusicPlayer {
 	 * 功能: 播放下一首歌曲
 	 */
 	public void playNext() throws Exception {
+		//先关闭当前的，否则重音
+//		if(nowMusic!=null)
+//			close();
 		int nowIndex = getNowMusicIndex();
 		int musicListSize = musicsList.size();
-		if (nowIndex > 0)
+		if (nowIndex >= 0)
 			nowMusic = musicsList.get(++nowIndex > (musicListSize - 1) ? nowIndex - musicListSize : nowIndex);
 		play();
 	}
@@ -95,6 +100,7 @@ public class MusicPlayer {
 	 */
 	public void removeAllMusics() {
 		musicsList.clear();
+		nowMusic=null;
 	}
 
 	/*
@@ -107,6 +113,7 @@ public class MusicPlayer {
 			}
 			BufferedInputStream buffer = new BufferedInputStream(new FileInputStream(nowMusic.getMusicUrl()));
 			sysPlayer = new Player(buffer);
+			System.out.println("当前播放模式:"+getNowMode().toString()+"\t当前播放歌曲:"+getNowMusic().getName());
 			sysPlayer.play();
 			return true;
 		} catch (Exception e) {
@@ -125,6 +132,7 @@ public class MusicPlayer {
 	 * 功能: 关闭播放器
 	 */
 	public void close() {
+		nowMusic=null;
 		sysPlayer.close();
 	}
 
@@ -170,6 +178,7 @@ public class MusicPlayer {
 	}
 
 	public void setNowMusic(Music nowMusic) {
+		musicsList.add(nowMusic);
 		this.nowMusic = nowMusic;
 	}
 
