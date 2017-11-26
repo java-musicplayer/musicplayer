@@ -74,11 +74,37 @@ public class IndexFrame {
 		mainPanel.add(leftPanel, "West");
 		
 		indexFrame.setVisible(true);
+		
+		
+		
+//		
+//		this.setTitle("冈昜雲音乐");
+//		this.setSize(1035, 685);
+//		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		this.setVisible(true);
+//		Container thisContainer = this.getContentPane();
+//		thisContainer.setLayout(new BorderLayout(4, 4));
+//		//West
+//		JPanel westJPanel = new JPanel();
+//		westJPanel.setPreferredSize(new Dimension(300, 625));
+//		BoxLayout westPanelLayout = new BoxLayout(westJPanel, BoxLayout.Y_AXIS);
+//		westJPanel.setLayout(westPanelLayout);
+//		thisContainer.add("West", westJPanel);
+//		
+//		
+//		//Center
+//		JPanel centerJPanel = new JPanel();
+//		centerJPanel.setPreferredSize(new Dimension(735, 625));
+//		BoxLayout centerPanelLayout = new BoxLayout(centerJPanel, BoxLayout.Y_AXIS);
+//		centerJPanel.setLayout(centerPanelLayout);
+//		thisContainer.add("Center", centerJPanel);
+//		
+//		
+//		//Buttom
+//		JPanel buttomJPanel = new JPanel();
+//		buttomJPanel.setPreferredSize(new Dimension(1035, 60));
+//		BoxLayout buttomPanelLayout = new BoxLayout(buttomJPanel, BoxLayout.Y_AXIS);
+//		buttomJPanel.setLayout(buttomPanelLayout);
+//		thisContainer.add("West", buttomJPanel);
 	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new IndexFrame();
-	}
-
 }
