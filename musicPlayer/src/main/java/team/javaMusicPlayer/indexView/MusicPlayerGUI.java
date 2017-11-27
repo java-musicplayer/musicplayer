@@ -9,6 +9,12 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import team.javaMusicPlayer.ButtomGUI.OperationOfMusic;
+import team.javaMusicPlayer.CenterGUI.MusicList;
+import team.javaMusicPlayer.CenterGUI.MusicListInformation;
+import team.javaMusicPlayer.WestGUI.OperationOfMusicLists;
+import team.javaMusicPlayer.WestGUI.OtherMusicLists;
+
 public class MusicPlayerGUI extends JFrame {
 
 	/**
@@ -31,7 +37,9 @@ public class MusicPlayerGUI extends JFrame {
 		westJPanel.setLayout(westPanelLayout);
 		thisContainer.add("West", westJPanel);
 		
-		
+		westJPanel.add(new OtherMusicLists());
+		westJPanel.add(new OperationOfMusicLists());
+		westJPanel.add(new OperationOfMusicLists());
 		//Center
 		JPanel centerJPanel = new JPanel();
 		centerJPanel.setPreferredSize(new Dimension(735, 625));
@@ -39,12 +47,17 @@ public class MusicPlayerGUI extends JFrame {
 		centerJPanel.setLayout(centerPanelLayout);
 		thisContainer.add("Center", centerJPanel);
 		
+		centerJPanel.add(new MusicListInformation());
+		centerJPanel.add(new MusicList());
+		
 		
 		//Buttom
 		JPanel buttomJPanel = new JPanel();
 		buttomJPanel.setPreferredSize(new Dimension(1035, 60));
 		buttomJPanel.setLayout(new FlowLayout(5));
 		thisContainer.add("West", buttomJPanel);
+		
+		buttomJPanel.add(new OperationOfMusic());
 	}
 
 	public static void main(String[] args) {
