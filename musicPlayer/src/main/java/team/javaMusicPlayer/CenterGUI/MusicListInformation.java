@@ -20,10 +20,22 @@ public class MusicListInformation extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String musicListName = "这是歌单";
-	private String createTime = "2016-11-11";
-	private String creator = "创建者";
-	private String imageRounte = "C:/Users/77438/Pictures/Saved Pictures/下载.jpg";
+	private static String musicListName = "这是歌单";
+	private static String createTime = "2016-11-11";
+	private static String creator = "创建者";
+	private static String imageRounte = "C:/Users/77438/Pictures/Saved Pictures/下载.jpg";
+	public static void setMusicListName(String musicListName) {
+		MusicListInformation.musicListName = musicListName;
+	}
+	public static void setCreateTime(String createTime) {
+		MusicListInformation.createTime = createTime;
+	}
+	public static void setCreator(String creator) {
+		MusicListInformation.creator = creator;
+	}
+	public static void setImageRounte(String imageRounte) {
+		MusicListInformation.imageRounte = imageRounte;
+	}
 	public MusicListInformation() {
 		// TODO Auto-generated constructor stub
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));

@@ -161,6 +161,7 @@ public class OperationOfMusicLists extends JPanel {
 						fm.setVisible(false);
 					}
 				});
+
 				pnOperation.add(btnSure);
 				pnOperation.add(btnCancel);
 				
@@ -171,9 +172,21 @@ public class OperationOfMusicLists extends JPanel {
 				fm.setVisible(true);
 			}
 		});
+		
+		
+//		JButton btnList = new JButton("查看歌单");
+//		btnList.addActionListener(new ActionListener() {
+//			
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//		});
+		
 		this.add(btnNewList);
 		this.add(btnDeleteList);
-
+		//this.add(btnList);
 	}
 
 }
