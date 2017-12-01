@@ -25,6 +25,12 @@ public class MusicList extends JPanel {
 			{ "Night train.mp3", "Guns and Roses", "10 min", "播放", "下载" },
 			{ "November rain.mp3", "Guns and Roses", "10 min", "播放", "下载" } };
 	private String[] musicColumnNames = { "曲名", "歌手", "时长", "播放", "下载" };
+	private JTable musicList; 
+	
+	public void setMusicList(JTable musicList) {
+		this.musicList = musicList;
+	}
+
 	public MusicList() {
 		// TODO Auto-generated constructor stub
 		this.setPreferredSize(new Dimension(735, 325));
@@ -43,7 +49,7 @@ public class MusicList extends JPanel {
 				return false;
 			}
 		};
-		JTable musicList = new JTable(dtMusicLists);
+		musicList = new JTable(dtMusicLists);
 		musicList.addMouseListener(new MouseListener() {
 			
 			@Override

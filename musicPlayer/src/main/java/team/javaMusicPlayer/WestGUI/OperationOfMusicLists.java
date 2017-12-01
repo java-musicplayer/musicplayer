@@ -59,20 +59,28 @@ public class OperationOfMusicLists extends JPanel {
 				pnListName.add(txtListName);
 				
 				JPanel pnUpId = new JPanel();
-				pnListName.setPreferredSize(new Dimension(500, 30));
-				pnListName.setLayout(new FlowLayout(FlowLayout.CENTER));
+				pnUpId.setPreferredSize(new Dimension(500, 30));
+				pnUpId.setLayout(new FlowLayout(FlowLayout.CENTER));
 				JLabel lbNumber = new JLabel("学号");
 				JTextField txtNumber = new JTextField(15);
 				pnUpId.add(lbNumber);
 				pnUpId.add(txtNumber);
 				
 				JPanel pnUpName = new JPanel();
-				pnListName.setPreferredSize(new Dimension(500, 30));
-				pnListName.setLayout(new FlowLayout(FlowLayout.CENTER));
+				pnUpName.setPreferredSize(new Dimension(500, 30));
+				pnUpName.setLayout(new FlowLayout(FlowLayout.CENTER));
 				JLabel lbName = new JLabel("名称");
 				JTextField txtName = new JTextField(15);
 				pnUpName.add(lbName);
 				pnUpName.add(txtName);
+				
+				JPanel pnUpPhoto = new JPanel();
+				pnUpPhoto.setPreferredSize(new Dimension(500, 30));
+				pnUpPhoto.setLayout(new FlowLayout(FlowLayout.CENTER));
+				JLabel lbPhoto = new JLabel("图片路径");
+				JTextField txtPhoto = new JTextField(15);
+				pnUpPhoto.add(lbPhoto);
+				pnUpPhoto.add(txtPhoto);
 				
 				JPanel pnOperation = new JPanel();
 				pnOperation.setPreferredSize(new Dimension(500, 30));
@@ -84,8 +92,10 @@ public class OperationOfMusicLists extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 						// TODO Auto-generated method stub
 						MusicSheetService musicSheetService=new MusicSheetService();
+						//创建歌单
+						musicSheetService.createMusicSheet(txtListName.getText(), txtNumber.getText(), txtName.getText(), lbPhoto.getText());
 						
-						musicSheetService.createMusicSheet(txtListName.getText(), txtNumber.getText(), txtName.getText(), "");
+						fm.setVisible(false);
 					}
 				});
 				
@@ -101,10 +111,10 @@ public class OperationOfMusicLists extends JPanel {
 				pnOperation.add(btnSure);
 				pnOperation.add(btnCancel);
 				
-				thisContainer.add(Box.createVerticalStrut(50));
 				thisContainer.add(pnListName);
 				thisContainer.add(pnUpId);
 				thisContainer.add(pnUpName);
+				thisContainer.add(pnUpPhoto);
 				thisContainer.add(pnOperation);
 				
 				fm.setVisible(true);

@@ -20,21 +20,44 @@ public class MusicListInformation extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static String musicListName = "这是歌单";
-	private static String createTime = "2016-11-11";
-	private static String creator = "创建者";
-	private static String imageRounte = "C:/Users/77438/Pictures/Saved Pictures/下载.jpg";
-	public static void setMusicListName(String musicListName) {
-		MusicListInformation.musicListName = musicListName;
+	private String musicListName = "这是歌单";
+	private String createTime = "2016-11-11";
+	private String creator = "创建者";
+	private String imageRounte = "C:/Users/77438/Pictures/Saved Pictures/下载.jpg";
+	
+	JLabel lblistName;
+	JLabel lbCreatorName;
+	JLabel lbCreateTime;
+	JLabel lbMusicShow;
+	public void setLbMusicShow(JLabel lbMusicShow) {
+		this.lbMusicShow = lbMusicShow;
 	}
-	public static void setCreateTime(String createTime) {
-		MusicListInformation.createTime = createTime;
+	public JLabel getLbCreatorName() {
+		return lbCreatorName;
 	}
-	public static void setCreator(String creator) {
-		MusicListInformation.creator = creator;
+	public JLabel getLbCreateTime() {
+		return lbCreateTime;
 	}
-	public static void setImageRounte(String imageRounte) {
-		MusicListInformation.imageRounte = imageRounte;
+	public JLabel getLbMusicShow() {
+		return lbMusicShow;
+	}
+	public JLabel getLblistName() {
+		return lblistName;
+	}
+	public void setMusicListName(String musicListName) {
+		this.musicListName = musicListName;
+	}
+	public String getMusicListName() {
+		return this.musicListName;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
+	public void setImageRounte(String imageRounte) {
+		this.imageRounte = imageRounte;
 	}
 	public MusicListInformation() {
 		// TODO Auto-generated constructor stub
@@ -45,7 +68,7 @@ public class MusicListInformation extends JPanel {
 		int height = 0, width = 200;
 		height = width * images.getIconHeight()/ images.getIconWidth();
 		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-		JLabel lbMusicShow = new JLabel(images);
+		lbMusicShow = new JLabel(images);
 		lbMusicShow.setPreferredSize(new Dimension(width, height));
 		
 		JPanel informationAndOperation = new JPanel();
@@ -53,13 +76,13 @@ public class MusicListInformation extends JPanel {
 		
 		JPanel listName = new JPanel();
 		listName.setLayout(new FlowLayout(FlowLayout.LEFT));
-		JLabel lblistName = new JLabel(musicListName);
+		lblistName = new JLabel(musicListName);
 		listName.add(lblistName);
 		
 		JPanel creatorAndTime = new JPanel();
 		creatorAndTime.setLayout(new FlowLayout(5));
-		JLabel lbCreatorName = new JLabel(creator);
-		JLabel lbCreateTime = new JLabel(createTime);
+		lbCreatorName = new JLabel(creator);
+		lbCreateTime = new JLabel(createTime);
 		creatorAndTime.add(lbCreatorName);
 		creatorAndTime.add(lbCreateTime);
 		
@@ -93,5 +116,6 @@ public class MusicListInformation extends JPanel {
 		this.add(lbMusicShow);
 		this.add(informationAndOperation);
 	}
+
 
 }
