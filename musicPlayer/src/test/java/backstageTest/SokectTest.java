@@ -34,8 +34,8 @@ public class SokectTest {
 		
 		// 播放网络歌单
 		MusicSheetService musicSheetService = new MusicSheetService();
-		musicSheetService.playAllSongs(online.get(0).getMusicItems());
-		
+		musicSheetService.playAllSongs(online.get(9).getMusicItems());
+
 		
 		
 	}

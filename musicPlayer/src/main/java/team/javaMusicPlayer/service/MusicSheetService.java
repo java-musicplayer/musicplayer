@@ -162,26 +162,78 @@ public class MusicSheetService {
 	 */
 	public void playAllSongs(Map<String, String> musicItems) {
 		MusicPlayer musicPlayer = MusicPlayer.getInstance();
-		Thread tDownload = new Thread() {
+//		Thread tDownload = new Thread() {
+//			public void run() {
+//				Music music = null;
+//				System.out.println("歌单歌曲：" + musicItems.size());
+//				for (String md5 : musicItems.keySet()) {
+//					music = SokectService.downloadMusic(md5, musicItems.get(md5));
+//					System.out.println("当前歌曲：" + music.getName());
+//					if (music != null) {
+//						musicPlayer.addMusic(music);
+//						try {
+//							musicPlayer.autoNext();
+//						} catch (Exception e) {
+//							e.printStackTrace();
+//							continue;
+//						}
+//					}
+//				}
+//			}
+//		};
+//		tDownload.start();
+//		
+		Thread tBackDown=new Thread() {
+			@Override
 			public void run() {
-				Music music = null;
+				boolean head=true;
 				System.out.println("歌单歌曲：" + musicItems.size());
 				for (String md5 : musicItems.keySet()) {
-					music = SokectService.downloadMusic(md5, musicItems.get(md5));
-					System.out.println("当前歌曲：" + music.getName());
+					if(head) {
+						//跳过第一首歌曲
+						head=false;
+						continue;
+					}
+					//开始下载后续歌曲
+					Music music = SokectService.downloadMusic(md5, musicItems.get(md5));
 					if (music != null) {
+						System.out.println("当前下载歌曲：" + music.getName());
 						musicPlayer.addMusic(music);
-						try {
-							musicPlayer.autoNext();
-						} catch (Exception e) {
-							e.printStackTrace();
-							continue;
-						}
 					}
 				}
+				System.out.println("全部下载完成!");
 			}
 		};
-		tDownload.start();
+		
+		Thread tPlay=new Thread() {
+			@Override
+			public void run() {
+				//用于播放歌曲
+				//首先下载第一手歌曲
+				for(String md5 : musicItems.keySet()) {
+					Music music = SokectService.downloadMusic(md5, musicItems.get(md5));
+					if (music != null) {
+						System.out.println("第一首歌曲：" + music.getName());
+						musicPlayer.addMusic(music);
+						break;
+					}
+				}
+				//开启线程下载其他歌曲
+				tBackDown.start();
+				System.out.println("开启后台下载歌曲线程！");
+				//播放歌曲已经下载好的歌曲
+				do {
+					try {
+						musicPlayer.autoNext();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				while (musicPlayer.getNowMusic()!=null); 
+			}
+		};
+		tPlay.start();
 	}
 
 	/**
