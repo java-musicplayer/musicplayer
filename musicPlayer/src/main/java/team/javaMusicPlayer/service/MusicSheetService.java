@@ -175,6 +175,7 @@ public class MusicSheetService {
 							musicPlayer.autoNext();
 						} catch (Exception e) {
 							e.printStackTrace();
+							continue;
 						}
 					}
 				}

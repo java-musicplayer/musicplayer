@@ -20,11 +20,9 @@ public class SokectTest {
 
 		// 获取歌单
 		List<MusicSheet> online = SokectService.queryMusicSheets();
-		// for (MusicSheet ms : online) {
-		// System.out.println(ms.getUuid()+"\t"+
-		// //ms.getMusicItems()+"\t"+
-		// ms.getCreator());
-		// }
+		 for (MusicSheet ms : online) {
+		 System.out.println(ms.getPicture());
+		 }
 
 		// 下载歌曲
 		// SokectService.downloadMusic(online.get(0).getMusicItems());

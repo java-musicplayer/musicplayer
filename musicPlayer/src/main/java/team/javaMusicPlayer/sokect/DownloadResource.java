@@ -56,6 +56,7 @@ public class DownloadResource {
 	 * 发送GET请求，并且保存图片歌曲资源
 	 * @return 请求 JSON,返回JSON
 	 * @return 请求下载歌曲或者图片， 返回保存的绝对路径
+	 * @return 下载发生异常返回null
 	 */
 
 	private static String sendGet(String url, String param) {
@@ -106,7 +107,8 @@ public class DownloadResource {
 						file = new File("data/musics/" + fileName);
 					} else {
 						// 写出图片
-						file = new File("data/pictures/" + param.split("=")[1]);
+//						file = new File("data/pictures/" + param.split("=")[1]);
+						file = new File("data/pictures/" + fileName);
 //						DataInputStream dataInputStream= new DataInputStream(realUrl.openStream());
 //						bytes=readInputStream(dataInputStream);
 					}
@@ -115,7 +117,7 @@ public class DownloadResource {
 
 				} catch (Exception e) {
 					e.printStackTrace();
-					return "";
+					return null;
 				} finally {
 					if (outFile != null) {
 						outFile.close();
@@ -126,7 +128,7 @@ public class DownloadResource {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "";
+			return null;
 		}
 	}
 

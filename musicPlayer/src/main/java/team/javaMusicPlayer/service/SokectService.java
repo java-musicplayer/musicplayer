@@ -33,6 +33,11 @@ public class SokectService {
 			else {
 				m=new Music();
 				String musicUrl=DownloadResource.downloadMusic(ss);
+				if(musicUrl==null) {
+					//下载失败，略过这条记录
+					System.out.println(ss+"下载失败!");
+					continue;
+				}
 				System.out.println(musicItems.get(ss)+"  OK!"+"\t"+"URL:"+musicUrl);
 				m.setMd5value(ss);
 				m.setName(musicItems.get(ss).split("\\.")[0]);
@@ -58,6 +63,11 @@ public class SokectService {
 		if(m==null) {
 			m=new Music();
 			String musicUrl=DownloadResource.downloadMusic(md5Value);
+			if(musicUrl==null) {
+				//下载失败，略过这条记录
+				System.out.println(name+"下载失败!");
+				return null;
+			}
 			System.out.println(name+"  OK!"+"\t"+"URL:"+musicUrl);
 			m.setMd5value(md5Value);
 			m.setName(name.split("\\.")[0]);
@@ -73,8 +83,9 @@ public class SokectService {
 	}
 	
 	
-	/*
+	/**
 	 * 功能: 下载图片
+	 * @return 失败返回null，正确返回绝对路径
 	 * 
 	 */
 	public static String downloadPicture(String uuid) {
@@ -90,6 +101,7 @@ public class SokectService {
 	
 	/**
 	 * 功能: 查询所有在线用户歌单
+	 * 歌单封面默认代表此歌单封面不存在
 	 * @return
 	 */
 	public static List<MusicSheet> queryMusicSheets() {
@@ -100,7 +112,18 @@ public class SokectService {
 		for (MusicSheet ms : singleMusicSheet) {
 			anSheets.add(ms);
 		}
-		//
+		//填充图片属性
+		//下载各个歌单图片
+		for (MusicSheet musicSheet : anSheets) {
+			String picUrl=downloadPicture(musicSheet.getUuid());
+			if(picUrl!=null) {
+				musicSheet.setPicture(picUrl);
+			}else {
+				//设置默认图片
+				musicSheet.setPicture(new File("resources/images/defaultFaceImg.jpeg").getAbsolutePath());
+				System.out.println(musicSheet.getName()+"没有封面!"+musicSheet.getUuid()+"使用默认图片");
+			}
+		}
 		return anSheets;
 	}
 

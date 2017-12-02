@@ -66,7 +66,8 @@ public class MusicPlayerTest {
 			
 			//移除所有歌曲
 			scanner.nextLine();
-			musicPlayer.removeAllMusics();
+			musicPlayer.close();
+//			musicPlayer.removeAllMusics();
 			System.out.println("移除所有歌曲，播放完当前曲目停止播放！");
 		
 	}

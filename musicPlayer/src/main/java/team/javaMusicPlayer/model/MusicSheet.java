@@ -90,6 +90,13 @@ public class MusicSheet {
 		this.id = id;
 	}
 	
+	@Override
+	public String toString() {
+		return "MusicSheet [id=" + id + ", uuid=" + uuid + ", name=" + name + ", creatorId=" + creatorId + ", creator="
+				+ creator + ", dateCreated=" + dateCreated + ", picture=" + picture + ", musicItems=" + musicItems
+				+ "]";
+	}
+
 	public Map<String, String> getMusicItems() {
 		return musicItems;
 	}
