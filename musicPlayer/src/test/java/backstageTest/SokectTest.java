@@ -33,8 +33,8 @@ public class SokectTest {
 		
 		
 		// 播放网络歌单
-//		MusicSheetService musicSheetService = new MusicSheetService();
-//		musicSheetService.playAllSongs(ondline.get(0).getMusicItems());
+		MusicSheetService musicSheetService = new MusicSheetService();
+		musicSheetService.playAllSongs(online.get(0).getMusicItems());
 		
 		
 		
