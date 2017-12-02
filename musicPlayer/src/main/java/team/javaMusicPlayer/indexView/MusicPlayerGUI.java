@@ -63,6 +63,9 @@ public class MusicPlayerGUI extends JFrame {
 		List<MusicSheet> shareMusicLists = SokectService.queryMusicSheets();
 		//获取个人歌单
 		List<MusicSheet> myMusicLists = musicSheetService.getMusicSheetsByCreatorId("16020031066");
+		for (MusicSheet musicSheet2 : myMusicLists) {
+			System.out.println(musicSheet2.getId());
+		}
 		LocalMusicLists myLists = new LocalMusicLists(mi, myMusicLists, list);
 		westJPanel.add(new OtherMusicLists(mi, shareMusicLists, list));
 		westJPanel.add(myLists);

@@ -97,17 +97,17 @@ public class OtherMusicLists extends JPanel {
 		shareMusicSheet = listOfOtherMusic;
 		int size = listOfOtherMusic.size();
 		if(size == 1) {
-			Object[][] a1 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
+			Object[][] a1 = {{listOfOtherMusic.get(0).getCreator(), listOfOtherMusic.get(0).getName()}};
 			shareMusicLists = a1;
 		}
-		if(size == 2) {
-			Object[][] a1 = {{listOfOtherMusic.get(2).getCreator(), listOfOtherMusic.get(2).getName()}};
+		else if(size == 2) {
+			Object[][] a1 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
 			shareMusicLists = a1;
 		}
 		else {
 			if(!shareMusicSheet.isEmpty()) {
-				Object[][] a2 = {{listOfOtherMusic.get(2).getCreator(), listOfOtherMusic.get(2).getName()}};
-				Object[][] a1 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
+				Object[][] a2 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
+				Object[][] a1 = {{listOfOtherMusic.get(0).getCreator(), listOfOtherMusic.get(0).getName()}};
 				shareMusicLists = getList(a1, a2);
 				for(int i = 2; i < size; i++) {
 					Object [][] a= {{listOfOtherMusic.get(i).getCreator(), listOfOtherMusic.get(i).getName()}};
@@ -175,10 +175,14 @@ public class OtherMusicLists extends JPanel {
 		            String listCreatorName = shareMusicSheet.get(row).getCreator();
 		            String listCreateTime = shareMusicSheet.get(row).getDateCreated();
 		            String uuid = shareMusicSheet.get(row).getUuid();
-		            String rount = SokectService.downloadPicture(uuid);
+//		            String rount = SokectService.downloadPicture(uuid);
+		            
+		            String rount=shareMusicSheet.get(row).getPicture();
+		            System.out.println(shareMusicSheet.get(row).getPicture());
 		            //jpn部分，即歌单信息部分
 		            //获取绘制图片
 		    		ImageIcon images = new ImageIcon(rount);
+		    		
 		    		int height = 0, width = 200;
 		    		height = width * images.getIconHeight()/ images.getIconWidth();
 		    		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));

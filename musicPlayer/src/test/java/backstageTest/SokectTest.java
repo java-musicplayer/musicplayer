@@ -23,9 +23,12 @@ public class SokectTest {
 		 for (MusicSheet ms : online) {
 		 System.out.println(ms.getPicture());
 		 }
+		 
+		 
+		online.get(0).getMusicItems();
 
 		// 下载歌曲
-		// SokectService.downloadMusic(online.get(0).getMusicItems());
+		 SokectService.downloadMusic(online.get(0).getMusicItems());
 
 		// 下载图片
 		 //SokectService.downloadPicture(online.get(3).getPicture());

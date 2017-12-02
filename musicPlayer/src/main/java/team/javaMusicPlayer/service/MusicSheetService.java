@@ -34,6 +34,7 @@ public class MusicSheetService {
 	 * 功能:获取歌单信息
 	 * 
 	 * @param 歌单的ID
+	 * @return 失败返回null
 	 */
 	public MusicSheet getMusicSheet(int msid) {
 		return musicsSheetDaoImpl.getById(msid);
@@ -102,7 +103,7 @@ public class MusicSheetService {
 	}
 
 	/**
-	 * 功能：添加歌曲到歌单
+	 * 功能：添加歌曲到歌单，添加完毕实现自动上传到服务器
 	 * 
 	 * @param msid
 	 *            歌单ID
@@ -116,6 +117,26 @@ public class MusicSheetService {
 	 * 
 	 */
 	public void addMusicsToMusicSheet(int msid, Music... musicLis) {
+		Thread thread=new Thread() {
+			@Override
+			public void run() {
+				MusicSheet musicSheet=new MusicSheetService().getMusicSheet(msid);
+				if(musicLis==null) {
+					System.out.println("歌单获取失败，上传出错！");
+				}
+				else {
+					System.out.println("开始上传歌单！");
+					if(SokectService.uploadMusicSheet(musicSheet)){
+						System.out.println("上传歌单详细信息:"+musicSheet.toString());
+						System.out.println("上传成功！");
+					}
+					else {
+						System.out.println("上传失败！请检查网络！");
+					}
+				}
+			}
+		};
+		
 		for (Music music : musicLis) {
 			// 判断歌单中是否已经有本首歌曲
 			if (!musicSteetToMusicDaoImpl.musicIsExist(msid, music.getId())) {
@@ -125,6 +146,10 @@ public class MusicSheetService {
 				musicSteetToMusicDaoImpl.insert(musicSheetToMusic);
 			}
 		}
+		
+		//打开上传歌曲线程
+		thread.start();
+		System.out.println("upload thread begin！");
 	}
 
 	/**

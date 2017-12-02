@@ -2,6 +2,7 @@ package team.javaMusicPlayer.WestGUI;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -55,20 +57,20 @@ public class LocalMusicLists extends JPanel {
 		myList = listOfOtherMusic;
 		int size = listOfOtherMusic.size();
 		if(size == 1) {
-			Object[][] a1 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
+			Object[][] a1 = {{listOfOtherMusic.get(0).getName()}};
 			localMusicLists = a1;
 		}
-		if(size == 2) {
-			Object[][] a1 = {{listOfOtherMusic.get(2).getCreator(), listOfOtherMusic.get(2).getName()}};
+		else if(size == 2) {
+			Object[][] a1 = {{listOfOtherMusic.get(1).getName()}};
 			localMusicLists = a1;
 		}
 		else {
 			if(!listOfOtherMusic.isEmpty()) {
-				Object[][] a2 = {{listOfOtherMusic.get(2).getCreator(), listOfOtherMusic.get(2).getName()}};
-				Object[][] a1 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
+				Object[][] a2 = {{listOfOtherMusic.get(1).getName()}};
+				Object[][] a1 = {{listOfOtherMusic.get(0).getName()}};
 				localMusicLists = getList(a1, a2);
 				for(int i = 2; i < size; i++) {
-					Object [][] a= {{listOfOtherMusic.get(i).getCreator(), listOfOtherMusic.get(i).getName()}};
+					Object [][] a= {{listOfOtherMusic.get(i).getName()}};
 					localMusicLists = getList(localMusicLists, a);
 				}
 			}
@@ -131,10 +133,24 @@ public class LocalMusicLists extends JPanel {
 		            int column = localMusicListsTable.columnAtPoint(p);
 		            System.out.println(row);
 		            System.out.println(column);
-		            String listName = (String) localMusicLists[row][column];
+		            String listName = myList.get(row).getName();
+		            String listCreatorName = myList.get(row).getCreator();
+		            String listCreateTime = myList.get(row).getDateCreated();
 		            System.out.println(listName);
+		            String rount=myList.get(row).getPicture();
+		            System.out.println(rount);
+		          //获取绘制图片
+		    		ImageIcon images = new ImageIcon("/home/sky/java-course/java-projects/exercises/musicplayer/musicPlayer/resources/images/defaultFaceImg.jpeg");
+		    		
+		    		int height = 0, width = 200;
+		    		height = width * images.getIconHeight()/ images.getIconWidth();
+		    		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+		            JLabel lbList = new JLabel(images);
 		            
 		            jpn.getLblistName().setText(listName);
+		            jpn.getLbCreatorName().setText(listCreatorName);
+		            jpn.getLbCreateTime().setText(listCreateTime);
+		            jpn.setLbMusicShow(lbList);
 		            
 		            jpn.updateUI();
 		            

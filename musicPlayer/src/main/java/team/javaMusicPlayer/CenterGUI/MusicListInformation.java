@@ -23,7 +23,7 @@ public class MusicListInformation extends JPanel {
 	private String musicListName = "这是歌单";
 	private String createTime = "2016-11-11";
 	private String creator = "创建者";
-	private String imageRounte = "C:/Users/77438/Pictures/Saved Pictures/下载.jpg";
+	private String imageRounte = "/home/sky/java-course/java-projects/exercises/musicplayer/musicPlayer/resources/images/defaultFaceImg.jpeg";
 	
 	JLabel lblistName;
 	JLabel lbCreatorName;
