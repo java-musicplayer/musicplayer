@@ -69,7 +69,7 @@ public class MusicPlayerGUI extends JFrame {
 		LocalMusicLists myLists = new LocalMusicLists(mi, myMusicLists, list);
 		westJPanel.add(new OtherMusicLists(mi, shareMusicLists, list));
 		westJPanel.add(myLists);
-		westJPanel.add(new OperationOfMusicLists());
+		westJPanel.add(new OperationOfMusicLists(myLists));
 
 		
 		
@@ -77,7 +77,7 @@ public class MusicPlayerGUI extends JFrame {
 		JPanel buttomJPanel = new JPanel();
 		buttomJPanel.setPreferredSize(new Dimension(1035, 60));
 		buttomJPanel.setLayout(new FlowLayout(5));
-		buttomJPanel.add(new OperationOfMusic());
+		buttomJPanel.add(new OperationOfMusic(list));
 	
 		thisContainer.add("West", westJPanel);
 		thisContainer.add("Center", centerJPanel);

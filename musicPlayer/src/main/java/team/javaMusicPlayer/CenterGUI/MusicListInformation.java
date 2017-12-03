@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -13,6 +14,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import team.javaMusicPlayer.service.MusicSheetService;
+import team.javaMusicPlayer.service.SokectService;
 
 public class MusicListInformation extends JPanel {
 
@@ -25,12 +29,20 @@ public class MusicListInformation extends JPanel {
 	private String creator = "创建者";
 	private String imageRounte = "C:\\Users\\77438\\Desktop\\musicPlayer\\resources\\images\\defaultFaceImg.jpeg";
 	
-	JLabel lblistName;
-	JLabel lbCreatorName;
-	JLabel lbCreateTime;
-	JLabel lbMusicShow;
-	ImageIcon images;
+	private JLabel lblistName;
+	private JLabel lbCreatorName;
+	private JLabel lbCreateTime;
+	private JLabel lbMusicShow;
+	private ImageIcon images;
+	private Map<String, String> shareMusicListContent;
 	
+	public Map<String, String> getShareMusicListContent() {
+		return shareMusicListContent;
+	}
+
+	public void setShareMusicListContent(Map<String, String> shareMusicListContent) {
+		this.shareMusicListContent = shareMusicListContent;
+	}
 	public ImageIcon getImages() {
 		return images;
 	}
@@ -102,7 +114,8 @@ public class MusicListInformation extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				MusicSheetService musicSheetService = new MusicSheetService();
+				musicSheetService.playAllSongs(shareMusicListContent);
 			}
 		});
 		JButton btnDownLoad = new JButton("下载全部");
@@ -111,7 +124,7 @@ public class MusicListInformation extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				SokectService.downloadMusic(shareMusicListContent);
 			}
 		});
 		playAndDownLoad.add(btnPlay);

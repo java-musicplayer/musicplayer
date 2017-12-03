@@ -6,8 +6,13 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -32,6 +37,14 @@ public class LocalMusicLists extends JPanel {
 	private Object[][] localMusicLists = { { "" }};
 	private String[] localMusicColumnNames = { "歌 单" };
 	List<MusicSheet> myList;
+	DefaultTableModel dtLocalMusicLists;
+	
+	public DefaultTableModel getDtLocalMusicLists() {
+		return dtLocalMusicLists;
+	}
+	public void setDtLocalMusicLists(DefaultTableModel dtLocalMusicLists) {
+		this.dtLocalMusicLists = dtLocalMusicLists;
+	}
 	//合并数组
 	private Object[][] getList(Object[][] a, Object[][] b){
 		int count = 0;
@@ -62,7 +75,8 @@ public class LocalMusicLists extends JPanel {
 		}
 		else if(size == 2) {
 			Object[][] a1 = {{listOfOtherMusic.get(1).getName()}};
-			localMusicLists = a1;
+			Object[][] a2 = {{listOfOtherMusic.get(0).getName()}};
+			localMusicLists = getList(a1, a2);
 		}
 		else {
 			if(!listOfOtherMusic.isEmpty()) {
@@ -82,7 +96,7 @@ public class LocalMusicLists extends JPanel {
 		this.setLayout(localMusicListsLayout);
 		
 		JLabel title = new JLabel("我的歌单");
-		DefaultTableModel dtLocalMusicLists = new DefaultTableModel(localMusicLists, localMusicColumnNames) {
+		dtLocalMusicLists = new DefaultTableModel(localMusicLists, localMusicColumnNames) {
 			
 			/**
 			 * 
@@ -140,17 +154,37 @@ public class LocalMusicLists extends JPanel {
 		            String rount=myList.get(row).getPicture();
 		            System.out.println(rount);
 		          //获取绘制图片
-		    		ImageIcon images = new ImageIcon("/home/sky/java-course/java-projects/exercises/musicplayer/musicPlayer/resources/images/defaultFaceImg.jpeg");
-		    		
+		    		//ImageIcon images = new ImageIcon("/home/sky/java-course/java-projects/exercises/musicplayer/musicPlayer/resources/images/defaultFaceImg.jpeg");
+		            BufferedImage bfImages = null;
+					try {
+						bfImages = ImageIO.read(new File(rount));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		String imageFormat =rount.split("\\.")[rount.split("\\.").length-1];
+		    		System.out.println(imageFormat);
+		    		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    		try {
+						ImageIO.write(bfImages, imageFormat , baos);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		ImageIcon images = new ImageIcon(baos.toByteArray());
 		    		int height = 0, width = 200;
 		    		height = width * images.getIconHeight()/ images.getIconWidth();
 		    		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-		            JLabel lbList = new JLabel(images);
+		           // JLabel lbList = new JLabel(images);
 		            
 		            jpn.getLblistName().setText(listName);
 		            jpn.getLbCreatorName().setText(listCreatorName);
 		            jpn.getLbCreateTime().setText(listCreateTime);
-		            jpn.setLbMusicShow(lbList);
+		            jpn.getLbMusicShow().setIcon(images);
+		          //  jpn.setLbMusicShow(lbList);
+		           
+		            jpn.getLbMusicShow().repaint();
+		            jpn.getLbMusicShow().updateUI();
 		            
 		            jpn.updateUI();
 		            

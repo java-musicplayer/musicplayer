@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
@@ -44,9 +45,9 @@ public class OtherMusicLists extends JPanel {
 	 * 
 	 */
 	private Object[][] shareMusicLists = {{"",""}};
-	private Object[][] listContents = {{"","","","","",""}};
+	private Object[][] listContents = {{"","",""}};
 	private String[] shareMusicColumnNames = { "分享者", "歌 单" };
-	private String[] musicColumnNames = { "曲名", "歌手", "时长", "播放", "下载" };
+	private String[] musicColumnNames = { "曲名", "播放", "下载" };
 	private List<MusicSheet> shareMusicSheet;
 	public void setShareMusicLists(Object[][] shareMusicLists) {
 		this.shareMusicLists = shareMusicLists;
@@ -74,21 +75,17 @@ public class OtherMusicLists extends JPanel {
 	//合并歌单内容
 	private Object[][] getListContent(Object[][] a, Object[][] b){
 		int count = 0;
-		Object[][] c = new Object[a.length + b.length][a.length + b.length];
+		Object[][] c = new Object[a.length + b.length][3];
 		for(int i = 0; i < a.length; i++) {
 			c[count][0] = a[i][0];
-			c[count][1] = a[i][1];
-			c[count][2] = a[i][2];
-			c[count][3] = "播放";
-			c[count][4] = "下载";
+			c[count][1] = "播放";
+			c[count][2] = "下载";
 			count ++;
 		}
 		for(int i = 0; i < b.length; i++) {
 			c[count][0] = b[i][0];
-			c[count][1] = b[i][1];
-			c[count][2] = b[i][2];
-			c[count][3] = "播放";
-			c[count][4] = "下载";
+			c[count][1] = "播放";
+			c[count][2] = "下载";
 			count ++;
 		}
 			
@@ -106,8 +103,9 @@ public class OtherMusicLists extends JPanel {
 			shareMusicLists = a1;
 		}
 		else if(size == 2) {
+			Object[][] a2 = {{listOfOtherMusic.get(0).getCreator(), listOfOtherMusic.get(0).getName()}};
 			Object[][] a1 = {{listOfOtherMusic.get(1).getCreator(), listOfOtherMusic.get(1).getName()}};
-			shareMusicLists = a1;
+			shareMusicLists = getList(a1, a2);
 		}
 		else {
 			if(!shareMusicSheet.isEmpty()) {
@@ -206,7 +204,7 @@ public class OtherMusicLists extends JPanel {
 		    		int height = 0, width = 200;
 		    		height = width * images.getIconHeight()/ images.getIconWidth();
 		    		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
-		            JLabel lbList = new JLabel(images);
+		            //JLabel lbList = new JLabel(images);
 		            jpn.getLblistName().setText(listName);
 		            jpn.getLbCreatorName().setText(listCreatorName);
 		            jpn.getLbCreateTime().setText(listCreateTime);
@@ -227,35 +225,48 @@ public class OtherMusicLists extends JPanel {
 		            
 		          //合并歌单内容
 		            //获取歌单内容信息
-		            int musicListId = shareMusicSheet.get(row).getId();
-		            List<Music> listContent = new MusicSheetService().getMusicByMusicSheetId(musicListId);
-		            
-		    		int size = listContent.size();
+		            Map<String, String> shareMusicListContent =  shareMusicSheet.get(row).getMusicItems();
+		            ml.setShareMusicListContent(shareMusicListContent);
+		            jpn.setShareMusicListContent(shareMusicListContent);
+		    		int size = shareMusicListContent.size();
+		    		ArrayList<String> keys = new ArrayList<String>(); 
+		    		ArrayList<String> values = new ArrayList<String>(); 
+		    		for (String key : shareMusicListContent.keySet()) {  
+		    		  
+		    		    keys.add(key); 
+		    		  
+		    		}  
+		    		for (String value : shareMusicListContent.values()) {  
+		    			  
+		    			values.add(value); 
+		    		  
+		    		}
 		    		if(size == 1) {
-		    			Object[][] a1 = {{listContent.get(1).getName(), listContent.get(1).getSinger(),
-		    				"10min", "播放", "下载"}};
+		    			String t1 = shareMusicListContent.get(keys.get(0));
+		    			Object[][] a1 = {{shareMusicListContent.get(keys.get(0)), "播放", "下载"}};
 		    			listContents = a1;
-		    		}
-		    		if(size == 2) {
-		    			Object[][] a1 = {{listContent.get(2).getName(), listContent.get(2).getSinger(),
-		    				"10min", "播放", "下载"}};
-		    			listContents = a1;
-		    		}
-		    		else {
-		    			if(!listContent.isEmpty()) {
-		    				Object[][] a2 = {{listContent.get(2).getName(), listContent.get(2).getSinger(),
-			    				"10min", "播放", "下载"}};
-			    			Object[][] a1 = {{listContent.get(1).getName(), listContent.get(1).getSinger(),
-			    				"10min", "播放", "下载"}};
-			    			listContents = getList(a1, a2);
-			    			for(int i = 2; i < size; i++) {
-			    				Object [][] a= {{listContent.get(i).getName(), listContent.get(i).getSinger(),
-				    				"10min", "播放", "下载"}};
-			    				listContents = getList(listContents, a);
-			    			}
-		    			}
+		    			System.out.println(listContents[0][0].toString());
 		    			
 		    		}
+		    		else if(size == 2) {
+		    			String t1 = shareMusicListContent.get(keys.get(0));
+	    				Object[][] a2 ={{shareMusicListContent.get(keys.get(0)), "播放", "下载"}};
+	    				Object[][] a1 = {{shareMusicListContent.get(keys.get(1)), "播放", "下载"}};
+	    				System.out.println(a2[0][1].toString());
+	    				System.out.println(a2[0][2].toString());
+	    				listContents = getListContent(a1, a2);
+		    		}
+		    		else {
+		    			String t1 = shareMusicListContent.get(keys.get(0));
+	    				Object[][] a2 ={{shareMusicListContent.get(keys.get(0)), "播放", "下载"}};
+	    				Object[][] a1 = {{shareMusicListContent.get(keys.get(1)), "播放", "下载"}};
+	    				listContents = getListContent(a1, a2);
+	    				for(int i = 2; i < size; i++) {
+	    					Object [][] a={{shareMusicListContent.get(keys.get(i)), "播放", "下载"}};
+	    					listContents = getListContent(listContents, a);
+	    				}
+		    		}
+
 		    		DefaultTableModel dtMusicLists = new DefaultTableModel(listContents, musicColumnNames) {
 		    			
 		    			/**
@@ -269,6 +280,75 @@ public class OtherMusicLists extends JPanel {
 		    			}
 		    		};
 		    		ml.setMusicList(new JTable(dtMusicLists));
+		    		ml.setDtMusicLists( new DefaultTableModel(listContents, musicColumnNames) {
+		    			
+		    			/**
+		    			 * 
+		    			 */
+		    			private static final long serialVersionUID = 1L;
+
+		    			@Override
+		    			public boolean isCellEditable(int row, int column) {
+		    				return false;
+		    			}
+		    		});
+		    		System.out.println(ml.getDtMusicLists().getValueAt(0, 0));
+	 		
+		    		ml.getMusicList().repaint();
+		    		ml.getMusicList().updateUI();
+		    		
+		    		
+		    		
+		    		JTable musicList = new JTable(dtMusicLists);
+		    		musicList.addMouseListener(new MouseListener() {
+		    			
+		    			@Override
+		    			public void mouseReleased(MouseEvent e) {
+		    				// TODO Auto-generated method stub
+		    				
+		    			}
+		    			
+		    			@Override
+		    			public void mousePressed(MouseEvent e) {
+		    				// TODO Auto-generated method stub
+		    				
+		    			}
+		    			
+		    			@Override
+		    			public void mouseExited(MouseEvent e) {
+		    				// TODO Auto-generated method stub
+		    				
+		    			}
+		    			
+		    			@Override
+		    			public void mouseEntered(MouseEvent e) {
+		    				// TODO Auto-generated method stub
+		    				
+		    			}
+		    			
+		    			@Override
+		    			public void mouseClicked(MouseEvent e) {
+		    				// TODO Auto-generated method stub
+		    				  if (e.getClickCount() == 2)
+		    			        {
+		    			            Point p = e.getPoint();
+		    			            int row = musicList.rowAtPoint(p);
+		    			            int column = musicList.columnAtPoint(p);
+		    			            //从而获得双击时位于的单元格
+		    			            //dtOtherMusicLists.addRow(new Vector());
+		    			        }
+		    			}
+		    		});
+		    		musicList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		    		
+		    		
+		    		
+		    		
+		    		ml.setMusicListScrollPane(new JScrollPane(musicList));
+		    		ml.getMusicListScrollPane().repaint();
+		    		ml.getMusicListScrollPane().updateUI();
+		    		ml.getMusicListScrollPane().setVisible(true);
+		    		
 		    		ml.updateUI();
 		            
 		        }

@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Map;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -21,14 +22,43 @@ public class MusicList extends JPanel {
 	public void setMusicData(Object[][] musicData) {
 		this.musicData = musicData;
 	}
-	private Object[][] musicData = { { "Yesterday.mp3", "Guns and Roses", "10 min", "播放", "下载" },
-			{ "Night train.mp3", "Guns and Roses", "10 min", "播放", "下载" },
-			{ "November rain.mp3", "Guns and Roses", "10 min", "播放", "下载" } };
-	private String[] musicColumnNames = { "曲名", "歌手", "时长", "播放", "下载" };
+	private Object[][] musicData = { { "Yesterday.mp3", "播放", "下载" } };
+	private String[] musicColumnNames = { "曲名", "播放", "下载" };
 	private JTable musicList; 
+	private DefaultTableModel dtMusicLists;
+	private JScrollPane musicListScrollPane;
+	private Map<String, String> shareMusicListContent;
 	
+	public Map<String, String> getShareMusicListContent() {
+		return shareMusicListContent;
+	}
+
+	public void setShareMusicListContent(Map<String, String> shareMusicListContent) {
+		this.shareMusicListContent = shareMusicListContent;
+	}
+
+	public JScrollPane getMusicListScrollPane() {
+		return musicListScrollPane;
+	}
+
+	public void setMusicListScrollPane(JScrollPane musicListScrollPane) {
+		this.musicListScrollPane = musicListScrollPane;
+	}
+
+	public DefaultTableModel getDtMusicLists() {
+		return dtMusicLists;
+	}
+
+	public void setDtMusicLists(DefaultTableModel dtMusicLists) {
+		this.dtMusicLists = dtMusicLists;
+	}
+
 	public void setMusicList(JTable musicList) {
 		this.musicList = musicList;
+	}
+
+	public JTable getMusicList() {
+		return musicList;
 	}
 
 	public MusicList() {
@@ -37,7 +67,7 @@ public class MusicList extends JPanel {
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
 
-		DefaultTableModel dtMusicLists = new DefaultTableModel(musicData, musicColumnNames) {
+		dtMusicLists = new DefaultTableModel(musicData, musicColumnNames) {
 			
 			/**
 			 * 
@@ -90,7 +120,7 @@ public class MusicList extends JPanel {
 			}
 		});
 		musicList.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		JScrollPane musicListScrollPane = new JScrollPane(musicList);
+		musicListScrollPane = new JScrollPane(musicList);
 
 		this.add(musicListScrollPane);
 		

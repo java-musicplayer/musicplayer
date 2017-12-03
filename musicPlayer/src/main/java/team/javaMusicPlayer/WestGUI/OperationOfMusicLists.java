@@ -25,7 +25,7 @@ public class OperationOfMusicLists extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public OperationOfMusicLists() {
+	public OperationOfMusicLists(LocalMusicLists lists) {
 		// TODO Auto-generated constructor stub
 		this.setPreferredSize(new Dimension(250, 45));
 		FlowLayout layout = new FlowLayout(5);
@@ -93,8 +93,8 @@ public class OperationOfMusicLists extends JPanel {
 						// TODO Auto-generated method stub
 						MusicSheetService musicSheetService=new MusicSheetService();
 						//创建歌单
-						musicSheetService.createMusicSheet(txtListName.getText(), txtNumber.getText(), txtName.getText(), lbPhoto.getText());
-						
+						musicSheetService.createMusicSheet(txtListName.getText(), txtNumber.getText(), txtName.getText(), txtPhoto.getText());
+						lists.updateUI();
 						fm.setVisible(false);
 					}
 				});
