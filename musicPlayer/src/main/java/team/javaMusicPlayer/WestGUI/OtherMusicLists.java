@@ -9,11 +9,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -178,11 +183,26 @@ public class OtherMusicLists extends JPanel {
 //		            String rount = SokectService.downloadPicture(uuid);
 		            
 		            String rount=shareMusicSheet.get(row).getPicture();
-		            System.out.println(shareMusicSheet.get(row).getPicture());
+		            System.out.println(rount);
 		            //jpn部分，即歌单信息部分
 		            //获取绘制图片
-		    		ImageIcon images = new ImageIcon(rount);
-		    		
+		    		BufferedImage bfImages = null;
+					try {
+						bfImages = ImageIO.read(new File(rount));
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		String imageFormat =rount.split("\\.")[rount.split("\\.").length-1];
+		    		System.out.println(imageFormat);
+		    		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    		try {
+						ImageIO.write(bfImages, imageFormat , baos);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+		    		ImageIcon images = new ImageIcon(baos.toByteArray());
 		    		int height = 0, width = 200;
 		    		height = width * images.getIconHeight()/ images.getIconWidth();
 		    		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
@@ -190,7 +210,17 @@ public class OtherMusicLists extends JPanel {
 		            jpn.getLblistName().setText(listName);
 		            jpn.getLbCreatorName().setText(listCreatorName);
 		            jpn.getLbCreateTime().setText(listCreateTime);
-		            jpn.setLbMusicShow(lbList);
+		            
+		           // jpn.getLbMusicShow().updateUI();
+		            //jpn.getLbMusicShow().repaint();
+		            jpn.getLbMusicShow().setIcon(images);
+		          //  jpn.setLbMusicShow(lbList);
+		           
+		            jpn.getLbMusicShow().repaint();
+		            jpn.getLbMusicShow().updateUI();
+		         
+		            //jpn.getLbMusicShow().setVisible(true);
+		            
 		            jpn.updateUI();
 		            
 		            //歌单列表部分

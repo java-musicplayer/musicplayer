@@ -23,12 +23,20 @@ public class MusicListInformation extends JPanel {
 	private String musicListName = "这是歌单";
 	private String createTime = "2016-11-11";
 	private String creator = "创建者";
-	private String imageRounte = "/home/sky/java-course/java-projects/exercises/musicplayer/musicPlayer/resources/images/defaultFaceImg.jpeg";
+	private String imageRounte = "C:\\Users\\77438\\Desktop\\musicPlayer\\resources\\images\\defaultFaceImg.jpeg";
 	
 	JLabel lblistName;
 	JLabel lbCreatorName;
 	JLabel lbCreateTime;
 	JLabel lbMusicShow;
+	ImageIcon images;
+	
+	public ImageIcon getImages() {
+		return images;
+	}
+	public void setImages(ImageIcon images) {
+		this.images = images;
+	}
 	public void setLbMusicShow(JLabel lbMusicShow) {
 		this.lbMusicShow = lbMusicShow;
 	}
@@ -64,7 +72,7 @@ public class MusicListInformation extends JPanel {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setPreferredSize(new Dimension(735, 300));
 
-		ImageIcon images = new ImageIcon(imageRounte);
+		images = new ImageIcon(imageRounte);
 		int height = 0, width = 200;
 		height = width * images.getIconHeight()/ images.getIconWidth();
 		images.setImage(images.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
