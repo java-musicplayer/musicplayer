@@ -1,0 +1,8 @@
+1. resources/images/defaultFaceImg.jpeg 默认封面或者封面路径无效时显示
+
+程序启动应该根目录不存在则创建以下两个文件夹
+data/music
+data/picture
+
+2. 主类找不到，工程那里，在src文件夹上点右键-Build Path-Use as Source Folder，重新进行编译，一切正常了
+
